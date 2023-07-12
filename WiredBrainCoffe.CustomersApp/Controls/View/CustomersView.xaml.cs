@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using WiredBrainCoffe.CustomersApp.Data;
+using WiredBrainCoffe.CustomersApp.ViewModel;
 
 namespace WiredBrainCoffe.CustomersApp.Controls.View
 {
@@ -8,22 +10,29 @@ namespace WiredBrainCoffe.CustomersApp.Controls.View
     /// </summary>
     public partial class CustomersView : UserControl
     {
+        private CustomersViewModel viewModel;
+
         public CustomersView()
         {
             InitializeComponent();
+            this.viewModel = new CustomersViewModel(new CustomerDataProvider());
+            DataContext = this.viewModel;
+            Loaded += CustomersView_Loaded;
+        }
+
+        private async void CustomersView_Loaded(object sender, RoutedEventArgs e)
+        {
+            await this.viewModel.LoadAsync();
         }
 
         private void ButtonMoveNavigation_Clcik(object sender, RoutedEventArgs e)
         {
-            //int column = (int) customerListGrid.GetValue(Grid.ColumnProperty);
-            //int newColumn = column == 0 ? 2 : 0;
+            this.viewModel.MoveNavigation();
+        }
 
-            //customerListGrid.SetValue(Grid.ColumnProperty, newColumn);
-
-            int column = Grid.GetColumn(customerListGrid);
-            int newColumn = column == 0 ? 2 : 0;
-
-            Grid.SetColumn(customerListGrid, newColumn);
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            this.viewModel.Add();
         }
     }
 }
