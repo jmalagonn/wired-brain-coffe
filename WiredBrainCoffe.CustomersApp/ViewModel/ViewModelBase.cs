@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace WiredBrainCoffe.CustomersApp.ViewModel
 {
@@ -10,5 +12,7 @@ namespace WiredBrainCoffe.CustomersApp.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public virtual Task LoadAsync() => Task.CompletedTask;
     }
 }
