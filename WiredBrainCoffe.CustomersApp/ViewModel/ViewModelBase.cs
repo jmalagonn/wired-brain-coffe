@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace WiredBrainCoffe.CustomersApp.ViewModel
@@ -8,7 +9,7 @@ namespace WiredBrainCoffe.CustomersApp.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void RaisePropertyChanged(string propertyName)
+        protected void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
